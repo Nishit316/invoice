@@ -28,34 +28,29 @@
     <div class="wrap">
         <table border="0" cellpadding = "3" cellspacing = "5">
             <tr>
-                <td>Invoice Number - 049 <br>
-                    Date of Invoice - 29-11-2021<br>
-                    Place of supply - Gurgaon ( 06 )</td>
+                <td>Invoice Number - #{$order.invoicenumber} <br>
+                    Date of Invoice - {$date}<br>
+                    Place of supply - {$order.whenplaced}</td>
                 <td rowspan="4" class="center">
                         <img src="image/index.jpeg" alt=""><br><br>
                     <b>TAX INVOICE</b><br><br>
-                    69 B Model Town, Patiala,<br>
-                    Punjab-147001<br><br><br>
+                    {if $storeurl}{$storeurl}{/if}<br><br><br>
                 </td>
             </tr>
             <tr>
                 <td><b>INVOICE TO</b></td>
             </tr>
             <tr>
-                <td><span style="color:#629c03">POLISH EXPERTS</span></td>
+                <td><span style="color:#629c03">{$customer.name}</span></td>
             </tr>
             <tr>
                <td>
-                    FIRST FLOOR SHOP NO 101C <br>
-                    SECTOR 53, SOUTH POINT <br>
-                    MALL, GOLF COURSE ROAD <br>
-                    GURGAON, HARYANA <br>
-                    122009<br>
+                {$customer.address}<br>
                </td>
             </tr>
             <tr>
-                <td>GSTIN 06AA0FP1084D1ZB</td>
-                <td class="center"><b>GSTIN 03CACPD1457L1Z0</b></td>
+                <td>GSTIN {$storegstn}</td>
+                <td class="center"><b>GSTIN {$storegstn}</b></td>
             </tr>
         </table>
         <table border="0" cellpadding = "3" cellspacing = "5">
@@ -69,25 +64,13 @@
             </tr>
             <tr><td colspan="5"><hr></td></tr>
             <tr>
-                <td>SOAKING SALTS</td>
-                <td>3304</td>
-                <td>6</td>
-                <td>0000</td>
-                <td>00000</td>
-            </tr>
-            <tr>
-                <td>PEDICURE SCRUB</td>
-                <td>3304</td>
-                <td>6</td>
-                <td>0000</td>
-                <td>00000</td>
-            </tr>
-            <tr>
-                <td>MASSAGE CREAM</td>
-                <td>3304</td>
-                <td>2</td>
-                <td>0000</td>
-                <td>00000</td>
+                <td>{$oi.menuItem} {if $oi.addOnToppings} {$oi.addOnToppings} {/if} {if $oi.extraInstructions}
+                    {$oi.extraInstructions}
+                    {/if} </td>
+                <td>{$oi.HSN}</td>
+                <td>{$oi.quantity}</td>
+                <td>(($oi.totalRate/(1+$oi.taxrate/100))/$oi.quantity)|number_format:2:".":","}</td>
+                <td>{$oi.taxrate}%	{$oi.totalRate}/td>
             </tr>
             <tr><td colspan="5"><hr></td></tr>
         </table>
@@ -95,7 +78,7 @@
             <tr>
                 <td>PAYMENT METHOD</td>
                 <td>SUB TOTAL</td>
-                <td style="padding-right: 130px;"><b>00000.00</b></td>
+                <td style="padding-right: 130px;"><b>₹ {$order.cash}</b></td>
             </tr>
             <tr>
                 <td rowspan="7">
@@ -112,18 +95,18 @@
                 <td>
                     + IGST 18%
                 </td>
-                <td style="padding-right: 130px;">00000.00</td>
+                <td style="padding-right: 130px;">{$order.tax}</td>
             </tr>
             <tr>
                 <td>- ROUNDED OFF </td>
-                <td style="padding-right: 130px;">0.00</td>
+                <td style="padding-right: 130px;">₹ {$order.cash+$order.card+$order.paytm}</td>
             </tr>
             <tr><td colspan="2"><hr></td></tr>
             <tr>
                 <td>
                     <span style="color:#629c03;">GRAND TOTAL</span>
                 </td>
-                <td style="padding-right: 130px;"><span style="color:#629c03;">₹ 5312.00</span></td>
+                <td style="padding-right: 130px;"><span style="color:#629c03;">{if $enableTaxRates} {$order.totalBill-$order.loyalityPoints-$order.discount} {else} {$order.totalBill-$order.loyalityPoints-$order.discount+$order.tax} {/if}</span></td>
             </tr>
             <tr>
                 <td><span style="color:#629c03;">Total in Words<br>
@@ -134,25 +117,23 @@
             </tr>
             <tr>
                 <td>
-                    <b>PLEASURE DOING<br>
-                    BUSINESS WITH YOU!</b><br>
+                    <b>{if $billFooterMessage} {$billFooterMessage}{/if} </b><br>
                 </td>
             </tr>
             <tr>
                 <td>
-                    Soul Wave Apothecary<br>
-                    69 B Model Town, Patiala<br>
-                    Punjab 147001<br>
+                    {if $storeurl}{$storeurl}{/if}
                 </td>
             </tr>
             <tr>
                 <td>
-                    +91 836 0169 668<br>
-                    info.soulwave@gmail.com
+                    {$storephone}{/if} <br>
+                    bkm@codify.tech.in
                 </td>
             </tr>
         </table>
         <hr>
+        <p class="center">Powered by Codify Apps</p>
     </div>
 </body>
 </html>
