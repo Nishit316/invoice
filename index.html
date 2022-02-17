@@ -4,136 +4,284 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
-    <style>
-        .wrap{
-            width: 984px;
-            margin: auto;
-        }
-        table{
-            width: 100%;
+    <title>Document</title>
+    <style type="text/css">
+        /* RESET FILE -------------- */
+        * {outline: none;}body {margin: 0;padding: 0;font-size:14px;}a:link, a:visited, a:hover, a:active {text-decoration: none;}
+        ul, ol {margin: 0;padding: 0;list-style-type: none;}form {margin: 0px;padding: 0px;}a img {border: 0;}.clearfix:after{ content: ".";  display: block;  height: 0; clear: both;  visibility: hidden;}.clearfix{min-width: 0; display: inline-block; display: block;}* html .clearfix{height: 1%;}.left{float: left;}.right{float: right;}.textleft{text-align:left;}.textright{text-align:right;}textarea {overflow:auto;}
+        
+        /* COMMON TAGS ------------- */
+        .clear { clear:both; line-height:1px; height:1px; }
+        a:hover {text-decoration:underline; }
+        a {color:#333;}
+        
+        /* TYPOGRAPHY -------------- */
+        h1 { font-size:1.8em; }h2 { font-size:2.2em; }h3 { font-size:2.0em; }h4 { font-size:1.8em; }h5 { font-size:1.6em; }h6 { font-size:1.4em; }
+        p, h1, h2, h3, h4, h5, h6 {margin:0px; padding:0px; }
+        h1, h2, h3, h4, h5, h6, th{color:#000;}
+        
+        /*  LAYOUT TAGS ------------ */
+        body {font-family:Arial, Helvetica, sans-serif; padding:60px 0; color:#121212;}
+        .wrap {width:984px; margin:0 auto;}
+        #box{background:url(../images/bg_box.png) repeat-y; width:960px; padding:0 12px; float:left;}
+        #header {padding:0 20px; min-height:110px; border-bottom:2px solid #629c03; }
+        #logo {min-height:70px; padding:10px 0 0 0; float:right; }
+        #header-center {width:180px; min-height:70px; padding:30px 0 0 0; float:left; }
+        #header_left {width:500px; padding:10px 0 0 0; float:left; text-align:right; }
+        #header_right h2 {font-size:30px; line-height:34px; padding-bottom:6px;}
+        #header_right p {font-size:16px; line-height:20px;}
+        
+        #details {min-height:80px; border-bottom:solid 1px #000; line-height:20px; padding:0 40px;}
+        /*#details .invoice-from,*/
+        #details .invoice-to {width:220px; float:left; padding:20px 0 0 0; }
+        #details .invoice-contact{width:220px; float:left; padding:20px 0 0 0px;}
+        #details .invoice-email {width:220px; padding:20px 0 0 0px; float:left;}
+        #details .invoice-store {width:220px; padding:20px 0 0 0px; float:left;}
+        #details h3 {font-size:16px;}
+        #details p { font-size:16px;}
+        
+        /* Table */
+        #table {width:878px; margin:20px 40px;}
+        table.summary{/*border-right:1px solid #d2d2d2;border-bottom:1px solid #d2d2d2;*/}
+        table.summary th{padding:5px 15px; /*border-left:1px solid #d2d2d2; border-top:1px solid #d2d2d2;*/ font-size:14px; }
+        table.summary td{padding:5px 15px; /*border-left:1px solid #d2d2d2; border-top:1px solid #d2d2d2;*/ font-size:14px; }
+        table.summary th{color:#000; text-align:left; font-weight:normal;/* background:url(../images/bg_thead.gif) repeat-x;*/ border-left:0;font-weight: bold;}
+        table.summary th:first-child, table.summary tr.tfoot td:first-child{/*border-left:1px solid #d2d2d2;*/}
+        table.summary tr.tfoot td{border-left:0; color:#000; font-weight:bold;}
+        table.summary tr.tfoot {/*background:#efefef;*/}
+        table.summary tr.sfoot td{color:#000; font-weight:bold;}
+        table.summary tr.sfoot {background:#ffffff;}
+        table.summary tbody td{ text-align:left;}
+        
+        #table {width:878px; margin:20px 40px;}
+        table.summary1{/*border-right:1px solid #d2d2d2;border-bottom:1px solid #d2d2d2;*/}
+        table.summary1 th{padding:5px; /*border-left:1px solid #d2d2d2; border-top:1px solid #d2d2d2;*/ font-size:14px; }
+        table.summary1 td{padding:5px; /*border-left:1px solid #d2d2d2; border-top:1px solid #d2d2d2;*/ font-size:14px; }
+        table.summary1 th{color:#000; text-align:left; font-weight:normal;/* background:url(../images/bg_thead.gif) repeat-x;*/ border-left:0;font-weight: bold;}
+        table.summary1 th:first-child, table.summary tr.tfoot td:first-child{/*border-left:1px solid #d2d2d2;*/}
+        table.summary1 tr.tfoot td{border-left:0; color:#000; font-weight:bold;}
+        table.summary1 tr.tfoot {/*background:#efefef;*/}
+        table.summary1 tr.sfoot td{color:#000; font-weight:bold;}
+        table.summary1 tr.sfoot {background:#ffffff;}
+        table.summary1 tbody td{ text-align:left;}
+        
+        #payment {width:880px; margin:0 40px; padding-bottom:20px; text-align:center; line-height:18px; font-size: 12px;}
+        #payment span {font-size:16px; font-style:italic;}
+        
+        body { margin:0 auto; text-align:center; color:#000; font-family: Helvetica, sans-serif; font-size:14px;}
+        #wrapper {  margin-left:10px; margin-right: 10px auto; text-align: center;}
+        #wrapper img { width: auto; }
+        
+        h2, h3, p { margin: 5px 0; }
+        .left { width:60%; float:left; text-align:left; margin-bottom: 3px; }
+        .right { width:40%; float:right; text-align:right; margin-bottom: 3px; }
+        .table, .totals { width: 100%; margin:10px 0; }
+        .table th { border-bottom: 2px solid #629c03; padding-bottom: 7px;}
+        .table td { padding:2px; }
+        .totals td { width: 24%; padding:0; }
+        .table td:nth-child(2) { overflow:hidden; }
+        
+        @media print{
+            body {  }
+          #buttons { display: none; }
+          #wrapper { width: 100%; margin: 0; font-size:14px; }
+          #wrapper img { max-width:300px;  }
         }
         hr{
             border: 2px solid #629c03;
         }
-        td{
-            text-align: left;
-        }
-        .center{
-            text-align: center;
-        }
-    </style>
+        </style>
 </head>
 <body>
-    <div class="wrap">
-        <table border="0" cellpadding = "3" cellspacing = "5">
-            <tr>
-                <td>Invoice Number - #{$order.invoicenumber} <br>
-                    Date of Invoice - {$date}<br>
-                    Place of supply - {$order.whenplaced}</td>
-                <td rowspan="4" class="center">
-                        <img src="image/index.jpeg" alt=""><br><br>
-                    <b>TAX INVOICE</b><br><br>
-                    {if $storeurl}{$storeurl}{/if}<br><br><br>
-                </td>
-            </tr>
-            <tr>
-                <td><b>INVOICE TO</b></td>
-            </tr>
-            <tr>
-                <td><span style="color:#629c03">{$customer.name}</span></td>
-            </tr>
-            <tr>
-               <td>
-                {$customer.address}<br>
-               </td>
-            </tr>
-            <tr>
-                <td>GSTIN {$storegstn}</td>
-                <td class="center"><b>GSTIN {$storegstn}</b></td>
-            </tr>
-        </table>
-        <table border="0" cellpadding = "3" cellspacing = "5">
-            <tr><td colspan="5"> <hr></td></tr>
-            <tr> 
-                <td><b>DESCRIPTION</b></td>
-                <td><b>HSN <br> CODE</b></td>
-                <td><b>QTY.</b></td>
-                <td><b>PRICE</b></td>
-                <td><b>AMOUNT  ₹ </b></td> 
-            </tr>
-            <tr><td colspan="5"><hr></td></tr>
-            <tr>
-                <td>{$oi.menuItem} {if $oi.addOnToppings} {$oi.addOnToppings} {/if} {if $oi.extraInstructions}
-                    {$oi.extraInstructions}
-                    {/if} </td>
-                <td>{$oi.HSN}</td>
-                <td>{$oi.quantity}</td>
-                <td>(($oi.totalRate/(1+$oi.taxrate/100))/$oi.quantity)|number_format:2:".":","}</td>
-                <td>{$oi.taxrate}%	{$oi.totalRate}/td>
-            </tr>
-            <tr><td colspan="5"><hr></td></tr>
-        </table>
-        <table border="0" cellpadding = "3" cellspacing = "5">
-            <tr>
-                <td>PAYMENT METHOD</td>
-                <td>SUB TOTAL</td>
-                <td style="padding-right: 130px;"><b>₹ {$order.cash}</b></td>
-            </tr>
-            <tr>
-                <td rowspan="7">
-                    <b>BANK TRANSFER</b><br>
-                    Soul Wave Apothecary<br>
-                    HDFC BANK<br>
-                    A/c 50200052943581<br>
-                    IFSC hdfc000116
-                </td>
-                <td colspan="2"><hr></td>
-            </tr>
-            <tr>
+
+<!-- start wrap -->
+<div class="wrap">
+    <!-- start box -->
+    <div id="box">
+        <!-- start header -->
+        <div id="header">
+            {if $customer.address}
+              
+              {else}
+              
+              {/if}
+              {if $customer.gstin}
+              
+              {else}
+              
+              {/if} 
+              <table border="0" cellpadding = "3" cellspacing = "5">
+                <tr>
+                    <td><h4>Invoice #{$order.invoicenumber}</h4>
+                        <p>{$date} | {$weather.icon} {$weather.temp}°C | {$time}</p></p></td>
+                    <td rowspan="4" class="center">
+                             {literal}{/literal}
+                            <!-- <img src="image/index.jpeg" alt="">--><br><br>
+                        <b>TAX INVOICE</b><br><br>
+                        {if $billFooterMessage} {$billFooterMessage}{/if} | {if $storephone}☎ {$storephone}{/if}
+          <br>{if $storeurl}{$storeurl}{/if}<br><br><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>INVOICE TO</b></td>
+                </tr>
+                <tr>
+                    <td><span style="color:#629c03">Name - {$customer.name}</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        Contact - {$customer.mobileNo}<br>
+                    </td>
+                 </tr>
+                <tr>
+                   <td>
+                    Address - {$customer.address}<br>
+                   </td>
+                </tr>
+                <tr>
+                    <td>
+                        Punjab 03 / Tax Invoice / GSTN : {$storegstn}</td>
+                    <td class="center"><b>{literal}{/literal}
+                        Punjab 03 / Tax Invoice / GSTN : {$storegstn}</b></td>
+                </tr>
+            </table>
+
+        </div>     
+        <div class="clear"></div>
+
+        <!-- start table -->
+        
+              {if $enableTaxRates}
                 
-                <td>
-                    + IGST 18%
-                </td>
-                <td style="padding-right: 130px;">{$order.tax}</td>
-            </tr>
+              {/if}
+              
+            {foreach name=oi item=oi key=key from=$items}
+            
+              {if $enableTaxRates}
+                
+              {else}
+                
+              {/if}
+              {if $enableTaxRates}
+                
+              {/if}
+                
+            {/foreach}
+          <table class="table" cellspacing="0" border="0">
+          <thead>
             <tr>
-                <td>- ROUNDED OFF </td>
-                <td style="padding-right: 130px;">₹ {$order.cash+$order.card+$order.paytm}</td>
+              <th style="text-align:left;">Product</th>
+              <th>HSN</th>
+              <th>Qty</th>
+              <th>SKU</th>
+              <th>Rate</th><th>Tax</th><th style="text-align:right;">Amount</th>
             </tr>
-            <tr><td colspan="2"><hr></td></tr>
-            <tr>
-                <td>
-                    <span style="color:#629c03;">GRAND TOTAL</span>
-                </td>
-                <td style="padding-right: 130px;"><span style="color:#629c03;">{if $enableTaxRates} {$order.totalBill-$order.loyalityPoints-$order.discount} {else} {$order.totalBill-$order.loyalityPoints-$order.discount+$order.tax} {/if}</span></td>
-            </tr>
-            <tr>
-                <td><span style="color:#629c03;">Total in Words<br>
-                    Five Thousand Three Hundred and Twelve Only</span></td>
-            </tr>
-            <tr>
-                <td colspan="2"><hr></td>
-            </tr>
-            <tr>
-                <td>
-                    <b>{if $billFooterMessage} {$billFooterMessage}{/if} </b><br>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {if $storeurl}{$storeurl}{/if}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {$storephone}{/if} <br>
-                    info@codify.tech
-                </td>
-            </tr>
+          </thead>
+          <tbody><tr>
+              <td style="text-align:left; width:180px;">{$oi.menuItem}
+                {if $oi.addOnToppings}
+                <small>{$oi.addOnToppings}</small>
+                {/if}
+                {if $oi.extraInstructions}
+                  <br>
+                  <div id="toppings">{$oi.extraInstructions}<br></div>
+                {/if}
+              </td>
+              <td style="text-align:center; width:30px;">{$oi.HSN}</td>
+              <td style="text-align:center; width:20px;">{$oi.quantity}</td>
+              <td style="text-align:center; width:30px;">{$oi.sku}</td><td style="text-align:center; width:50px; ">{(($oi.totalRate/(1+$oi.taxrate/100))/$oi.quantity)|number_format:2:".":","}</td><td style="text-align:center; width:50px;">{($oi.totalRate/$oi.quantity)|number_format:2:".":","}</td><td style="text-align:center; width:70px; ">{$oi.taxrate}%</td><td style="text-align:right; width:70px; ">{$oi.totalRate}</td>
+            </tr></tbody>
         </table>
+        
+            {if $showPaymentMethods}
+              {if $order.cash &gt; 0}
+              
+              {/if}
+              {if $order.card &gt; 0}
+              
+              {/if}
+              {if $order.paytm &gt; 0}
+              
+              {/if}
+            {/if}
+            
+            {if $order.changeReturned &gt; 0}
+            
+            {/if}
+        <table class="totals" style="border-top:2px solid #629c03; padding-top:5px; width: 50% !important; float: left; padding-right: 20px;">
+              <tbody><tr>
+                <td colspan="2" style="text-align: center;"><b>Payment Details</b></td>
+              </tr><tr>
+                <td style="text-align:left;">Cash</td>
+                <td style="text-align:right; ">₹ {$order.cash}</td>
+              </tr><tr>
+                <td style="text-align:left;">Card</td>
+                <td style="text-align:right; ">₹ {$order.card}</td>
+              </tr><tr>
+                <td style="text-align:left;">PayTM</td>
+                <td style="text-align:right; ">₹ {$order.paytm}</td>
+              </tr><tr>
+              <td style="text-align:left;">Paid</td>
+              <td style="text-align:right;">₹ {$order.cash+$order.card+$order.paytm}</td>
+            </tr><tr>
+            <td style="text-align:left;">Change</td>
+            <td style="text-align:right;">₹ {$order.changeReturned}</td>
+            </tr></tbody></table>
+        {if $enableTaxRates}
+        
+            {if $order.loyalityPoints &gt; 0}
+              
+            {/if}
+            {if $order.discount &gt; 0}
+              
+            {/if}
+            {foreach name=t item=t key=key from=$paidtaxes}
+            
+            {/foreach}
+          <table class="totals" style="border-top:2px solid #629c03; padding-top:3px; width: 50% !important; float: right; padding-left: 20px;">
+            <tbody><tr>
+              <th colspan="2">Tax Breakdown</th>
+            </tr>
+            <tr>
+                <td style="text-align:left; ">Redeemed Pts.</td>
+                <td style="text-align:right;">- ₹{$order.loyalityPoints}</td>
+              </tr><tr>
+                <td style="text-align:left;">Discount</td>
+                <td style="text-align:right;">- ₹{$order.discount}</td>
+              </tr><tr>
+              <td style="text-align:left; width:180px;">{$t.taxname}
+              </td>
+              <td style="text-align:right; width:30px;">{$t.taxpaid}</td>
+            </tr><tr>
+              <td style="text-align:left;">TOTAL</td>
+            <td style="text-align:right;">{if $enableTaxRates}
+                    {$order.totalBill-$order.loyalityPoints-$order.discount}
+                  {else}
+                    {$order.totalBill-$order.loyalityPoints-$order.discount+$order.tax}
+                  {/if}</td>
+            </tr>
+        </tbody></table>
+        {/if}
+        <div class="clearfix"></div>
         <hr>
-        <p class="center">Powered by Codify Apps</p>
+
+
+      <div style="padding-top:0px;">
+        <span>{if $billFooterMessage} {$billFooterMessage}{/if} | {if $storephone}☎ {$storephone}{/if}
+          <br>{if $storeurl}{$storeurl}{/if}
+      </span></div>
+      <center>Powered by Codify Apps</center>
+        <!-- end table -->
+        <div class="clear"></div>
+        <!-- start payment -->
+
+        <!-- end payment -->
     </div>
+    <!-- end box -->
+</div>
+
+
+<!-- end wrap -->
+
 </body>
 </html>
